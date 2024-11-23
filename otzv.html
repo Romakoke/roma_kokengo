@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>РОМНҰР</title>
+  <style>
+    /* Басты стильдер */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-image: url('https://images.wallpaperscraft.ru/image/single/turist_puteshestvie_pohod_193121_1920x1080.jpg'),filter: blur(5px);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #333;
+      margin: 0;
+      
+      padding: 0;
+    }
+
+    /* Тақырып және логотип */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px 20px;
+    }
+
+    header .logo img {
+      width: 40px;
+      height: 40px;
+      vertical-align: middle;
+    }
+
+    header .logo a {
+      color: #fff;
+      font-size: 1.5em;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+
+    .nav {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .nav li a:hover {
+      color: #ffd700;
+    }
+
+    /* Контент-бөлімдер */
+    .container {
+      text-align: center;
+      color: #fff;
+      padding: 60px 0;
+      font-size: 2em;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .content-section {
+      display: none;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      margin: 20px auto;
+      max-width: 800px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    /* Жолдасу бөлімі */
+    .contact {
+      padding: 40px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .section-subtitle {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      color: #ffd700;
+    }
+
+    .contact-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 25px;
+      border-radius: 7px;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .contact-input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    .button {
+      padding: 12px 24px;
+      background-color: #ffd700;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      color: #333;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #ffdf00;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-image: url('https://images.wallpaperscraft.ru/image/single/turist_puteshestvie_pohod_193121_1920x1080.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    header .logo img {
+      width: 40px;
+      height: 40px;
+      vertical-align: middle;
+    }
+
+    header .logo a {
+      color: #fff;
+      font-size: 1.5em;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+        <img src="logo.webp" alt="ROMNURMAX Logo">
+        <a href="http://localhost/joba/menu.html">ROMNURMAX</a>    </div>
+    
+  </header>
+
+  <!-- Контакт бөлімі -->
+  <section class="contact">
+    <h3 class="section-subtitle">Ulaşın</h3>
+    <h2 class="section-title">İletişim</h2>
+    <div class="contact-container">
+      <form action="#" class="contact-form" id="contact-form">
+        <div class="contact-group">
+          <input type="text" class="contact-input" name="user_name" placeholder="Adınızı girin" required autocomplete="off">
+          <input type="email" class="contact-input" name="user_email" placeholder="E-posta adresinizi girin" required autocomplete="off">
+        </div>
+        <textarea name="message" class="contact-input" placeholder="Mesajınızı girin" required></textarea>
+        <button type="submit" class="button">Mesaj gönder</button>
+      </form>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    // EmailJS setup
+    emailjs.init("MhFFGEpQ_8eb9iC9W");
+
+    // Toggle content visibility
+    function showContent(sectionId) {
+      document.querySelectorAll('.content-section').forEach(section => {
+        section.style.display = 'none';
+      });
+      document.getElementById(sectionId).style.display = 'block';
+    }
+
+    // Contact form submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      emailjs.sendForm('service_8somk05', 'template_on2hezb', this)
+        .then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+        }, (error) => {
+          console.log('FAILED...', error);
+        });
+    });
+  </script>
+</body>
+</html>
