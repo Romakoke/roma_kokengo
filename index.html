@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giriş ve Kayıt Formu</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
-
 <body>
     <form id="loginForm" class="login-form" action="php/login.php" method="POST">
         <header>
             <div class="logo">
-                <img src="logo.webp" alt="ROMNURMAX Logosu">
+                <img src="logo.webp" alt="ROMNURMAX Logo">
                 <h1 class="login-title" id="formTitle">ROMNURMAX</h1>
             </div>
         </header>
-        <h1 class="login-title" id="formTitle">Giriş Yap</h1>
-
+        <h1 class="login-title" id="formTitle">Giriş</h1>
         <div class="input-box" id="usernameField">
             <i class='bx bxs-user'></i>
             <input type="text" name="username" placeholder="Kullanıcı Adı" required>
@@ -28,42 +24,63 @@
             <i class='bx bxs-lock-alt'></i>
             <input type="password" name="password" placeholder="Şifre" required>
         </div>
-
         <div class="remember-forgot-box" id="loginOptions">
             <label for="remember">
                 <input type="checkbox" id="remember">
                 Beni Hatırla
             </label>
-            <a href="#">Şifremi Unuttum?</a>
+            <a href="#">Şifrenizi mi unuttunuz?</a>
         </div>
-
-        <div class="register-form" id="registerFields">
+        <div class="register-form" id="registerFields" style="display: none;">
             <div class="input-box">
                 <i class='bx bxs-lock-alt'></i>
-                <input type="password" name="confirmPassword" placeholder="Şifreyi Onayla" id="confirmPassword"
-                    required>
+                <input type="password" name="confirmPassword" placeholder="Şifreyi Onayla" id="confirmPassword" required>
             </div>
             <div class="input-box">
                 <i class='bx bxs-envelope'></i>
                 <input type="email" name="email" placeholder="E-posta" id="email" required>
             </div>
         </div>
-
-        <input type="hidden" name="action" id="formAction" value="giriş">
-
+        <input type="hidden" name="action" id="formAction" value="login">
         <button type="submit" class="login-btn" id="submitButton">Giriş Yap</button>
-
         <p class="register" id="registerLink">
             Hesabınız yok mu?
             <a href="#" id="toggleRegister">Kayıt Ol</a>
         </p>
     </form>
+    <div id="message" style="display: none; color: rgb(241, 244, 241);"></div> <!-- Mesaj Alanı -->
     <script>
-        document.getElementById("loginForm").addEventListener("submit", function (event) {
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            window.location.href = "menu.html"; // Ana sayfaya yönlendirme
+            if (document.getElementById("formAction").value === "login") {
+                // Burada gerekirse giriş doğrulaması ekleyebilirsiniz
+                window.location.href = "menu.html"; // Ana sayfaya yönlendirme
+            } else if (document.getElementById("formAction").value === "register") {
+                // Kullanıcı kaydı için mantık
+                // Başarılı bir kayıt mesajı göster
+                document.getElementById("message").innerText = "Başarıyla kaydedildi!";
+                document.getElementById("message").style.display = "block";
+
+                // Sonrasında giriş formuna geri dön
+                setTimeout(function() {
+                    document.getElementById("registerFields").style.display = "none";
+                    document.getElementById("loginOptions").style.display = "block";
+                    document.getElementById("formTitle").innerText = "Giriş";
+                    document.getElementById("submitButton").innerText = "Giriş Yap";
+                    document.getElementById("formAction").value = "login";
+                }, 2000); // 2 saniye sonra giriş formuna geri dön
+            }
+        });
+
+        document.getElementById("toggleRegister").addEventListener("click", function(event) {
+            event.preventDefault();
+            document.getElementById("registerFields").style.display = "block";
+            document.getElementById("loginOptions").style.display = "none";
+            document.getElementById("formTitle").innerText = "Kayıt Ol";
+            document.getElementById("submitButton").innerText = "Kayıt Ol";
+            document.getElementById("formAction").value = "register";
+            document.getElementById("message").style.display = "none"; // Mesajı gizle
         });
     </script>
 </body>
-
 </html>
